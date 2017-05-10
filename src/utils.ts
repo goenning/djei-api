@@ -62,5 +62,5 @@ export const formatPermit = (input: string) => {
         case 'Reviews received': return 'reviews';
         case 'Requests received week beginning': return 'stamp4';
     }
-    return null;
+    return sanitized;
 };
