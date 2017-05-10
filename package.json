@@ -1,0 +1,28 @@
+{
+  "name": "djei",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/src/pull.js",
+  "scripts": {
+    "test": "tsc && mocha dist/test",
+    "lint": "tslint src/** test/**"
+  },
+  "keywords": [ "ireland", "djei", "work permit", "employment" ],
+  "author": "Guilherme Oenning <me@goenning.net> (http://goenning.net/)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^3.5.2",
+    "@types/cheerio": "^0.22.1",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.18",
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0",
+    "tslint": "^5.2.0",
+    "typescript": "^2.3.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.49.0",
+    "axios": "^0.16.1",
+    "cheerio": "^0.22.0"
+  }
+}
