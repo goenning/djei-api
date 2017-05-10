@@ -38,7 +38,6 @@ export const pull = async (): Promise<PullResult> => {
     };
 };
 
-
 export const handler = async (event: any, context: any, callback: any) => {
     const result = await pull();
     const client = new AWS.DynamoDB.DocumentClient();
