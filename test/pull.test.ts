@@ -9,7 +9,7 @@ describe('Pull', () => {
 
     it(`should pull data from live page`, async function() {
         this.timeout(30000);
-        const result = await pull(fail);
+        const result = await pull();
         expect(result.ticks).to.be.greaterThan(0);
         expect(result.updated).to.be.greaterThan(0);
         expect(result.processes.reviews).to.be.greaterThan(0);

@@ -2,7 +2,6 @@
   "name": "djei",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/src/pull.js",
   "scripts": {
     "test": "tsc && mocha dist/test",
     "lint": "tslint src/** test/**"
