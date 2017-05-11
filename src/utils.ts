@@ -67,15 +67,23 @@ export const formatPermit = (input: string) => {
 
 export const fromTicks = (ticks: number, format: string) => {
     if (format === 'raw') {
-        return ticks.toString();
+        return ticks;
     } else {
         const date = new Date(ticks);
         return `${date.getUTCFullYear()}-${twoDigits(date.getUTCMonth() + 1)}-${twoDigits(date.getUTCDate())}`;
     }
 };
 
-export const toTicks = (date: string) => {
-    return new Date(`${date}T00:00:00.000Z`).getTime();
+export const toTicks = (date: string | null) => {
+    if (date && date.length !== 10) {
+        throw new Error(`'${date}' is not in a valid date format.`);
+    }
+
+    const ticks = new Date(`${date}T00:00:00.000Z`).getTime();
+    if (isNaN(ticks)) {
+        throw new Error(`'${date}' is not a valid date.`);
+    }
+    return ticks;
 };
 
 export const applyInterval = (ticks: number, interval: any) => {

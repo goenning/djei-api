@@ -61,8 +61,8 @@ describe('Utility Functions', () => {
     });
 
     [
-            { ticks: 1494460800000, date: '2017-05-11', raw: '1494460800000' },
-            { ticks: 1494374400000, date: '2017-05-10', raw: '1494374400000' },
+            { ticks: 1494460800000, date: '2017-05-11', raw: 1494460800000 },
+            { ticks: 1494374400000, date: '2017-05-10', raw: 1494374400000 },
     ].forEach((item) => {
         it(`should parse date '${item.ticks}' to/from '${item.date}'`, () => {
             expect(fromTicks(item.ticks, 'date')).to.be.eq(item.date);
@@ -70,6 +70,18 @@ describe('Utility Functions', () => {
             expect(fromTicks(item.ticks, 'anything')).to.be.eq(item.date);
 
             expect(toTicks(item.date)).to.be.eq(item.ticks);
+        });
+    });
+
+    [
+            { date: '2017-05' },
+            { date: '2017' },
+            { date: '2017-05-10-as' },
+            { date: 'asdf' },
+            { date: null },
+    ].forEach((item) => {
+        it(`should thow error when parsing date '${item.date}'`, () => {
+            expect(() => toTicks(item.date)).to.throw();
         });
     });
 
