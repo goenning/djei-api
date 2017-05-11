@@ -13,7 +13,7 @@ script:
   - npm run pack
 
 deploy:
-	skip_cleanup: true
+  skip_cleanup: true
   provider: script
   script: npm run publish
   on:
