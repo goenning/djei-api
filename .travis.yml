@@ -11,9 +11,8 @@ script:
   - npm run pack
 
 deploy:
-  skip_cleanup: true
   provider: script
-  script: npm run publish
+  script: npm run deploy
   on:
     branch: master
 
