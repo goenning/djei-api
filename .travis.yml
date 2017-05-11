@@ -13,10 +13,11 @@ script:
   - npm run pack
 
 deploy:
-  - provider: script
-    script: npm run publish
-    on:
-      branch: master
+	skip_cleanup: true
+  provider: script
+  script: npm run publish
+  on:
+    branch: master
 
 notifications:
   email:
