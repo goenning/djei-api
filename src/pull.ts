@@ -29,17 +29,18 @@ export const pull = async (): Promise<PullResult> => {
 
 export const handler = async (event: any, context: any, callback: any) => {
     const result = await pull();
-    console.log(result);
+    console.log(`Pull Result:`, result);
 
     const client = new AWS.DynamoDB.DocumentClient();
     client.put({
         TableName: 'djei_raw',
         Item: result,
-    }, (err: Error, output: AWS.DynamoDB.DocumentClient.PutItemOutput) => {
+    }, (err, output) => {
+        console.log(`DynamoDB Put:`, err, output);
         if (err) {
-            callback(err);
+            return callback(err);
         } else {
-            callback(null, output);
+            return callback(null, output);
         }
     });
 };

@@ -5,8 +5,19 @@ import { PullResult } from './interfaces';
 export const handler = async (event: any, context: any, callback: any) => {
     const client = new AWS.DynamoDB.DocumentClient();
     const body = Object.assign({}, event.queryStringParameters, event.pathParameters);
-    console.log(body);
-    const ticks = toTicks(body.date);
+    console.log(`Input:`, body);
+
+    let ticks = 0;
+    try {
+        ticks = toTicks(body.date);
+    } catch (ex) {
+        return callback(null, {
+            statusCode: 400,
+            body: JSON.stringify({
+                message: `'${body.date}' is not a valid date.`
+            })
+        });
+    }
 
     client.get({
         TableName: 'djei_raw',
@@ -14,25 +25,31 @@ export const handler = async (event: any, context: any, callback: any) => {
             ticks
         }
     }, (err, data) => {
-        console.log(err, data);
+
+        console.log(`DynamoDB Get:`, err, data);
         if (err) {
-            callback(err, null);
+            return callback(err, null);
         }
 
         const result = data.Item as PullResult;
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify({
-                date: fromTicks(result.ticks, body.format),
-                updated: fromTicks(result.updated, body.format),
-                processes: Object.keys(result.processes).map((name, idx) => {
-                    return {
-                        name,
-                        date: fromTicks(result.processes[name], body.format)
-                    };
+
+        if (result) {
+            const response = {
+                statusCode: 200,
+                body: JSON.stringify({
+                    date: fromTicks(result.ticks, body.format),
+                    updated: fromTicks(result.updated, body.format),
+                    processes: Object.keys(result.processes).map((name, idx) => {
+                        return {
+                            name,
+                            date: fromTicks(result.processes[name], body.format)
+                        };
+                    })
                 })
-            })
-        };
-        callback(null, response);
+            };
+            return callback(null, response);
+        } else {
+            return callback(null, { statusCode: 404 });
+        }
     });
 };
