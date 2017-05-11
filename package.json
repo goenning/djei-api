@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "test": "tsc && mocha dist/test",
-    "lint": "tslint src/** test/**"
+    "lint": "tslint src/** test/**",
+    "pack": "rm -f lambda.zip && zip -r -X lambda.zip .",
+    "publish": "aws lambda update-function-code --function-name djei-pull --zip-file fileb://lambda.zip"
   },
   "keywords": [ "ireland", "djei", "work permit", "employment" ],
   "author": "Guilherme Oenning <me@goenning.net> (http://goenning.net/)",
