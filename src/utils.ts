@@ -69,7 +69,6 @@ export const formatResult = (result: PullResult, format: string) => {
     };
 };
 
-
 export const formatPermit = (input: string) => {
     const sanitized = sanitize(input);
     switch (sanitized) {
