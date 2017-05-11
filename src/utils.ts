@@ -64,3 +64,23 @@ export const formatPermit = (input: string) => {
     }
     return sanitized;
 };
+
+export const fromTicks = (ticks: number, format: string) => {
+    if (format === 'raw') {
+        return ticks.toString();
+    } else {
+        const date = new Date(ticks);
+        return `${date.getUTCFullYear()}-${twoDigits(date.getUTCMonth() + 1)}-${twoDigits(date.getUTCDate())}`;
+    }
+};
+
+export const toTicks = (date: string) => {
+    return new Date(`${date}T00:00:00.000Z`).getTime();
+};
+
+export const applyInterval = (ticks: number, interval: any) => {
+    if (typeof interval === 'number') {
+        return ticks + (interval * 24 * 60 * 60 * 1000);
+    }
+    return ticks;
+};

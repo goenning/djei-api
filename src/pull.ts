@@ -3,18 +3,7 @@ import * as $ from 'cheerio';
 import * as AWS from 'aws-sdk';
 
 import { extractWhenUpdated, formatPermit, getToday, parseDate } from './utils';
-
-type ErrorHandler = (err: Error) => void;
-
-interface Processes {
-    [key: string]: number;
-}
-
-interface PullResult {
-    ticks: number;
-    updated: number;
-    processes: Processes;
-}
+import { PullResult, Processes } from './interfaces';
 
 export const pull = async (): Promise<PullResult> => {
     const url = 'https://www.djei.ie/en/What-We-Do/Jobs-Workplace-and-Skills/Employment-Permits/Current-Application-Processing-Dates/';
@@ -45,7 +34,7 @@ export const handler = async (event: any, context: any, callback: any) => {
     const client = new AWS.DynamoDB.DocumentClient();
     client.put({
         TableName: 'djei_raw',
-        Item: result
+        Item: result,
     }, (err: Error, output: AWS.DynamoDB.DocumentClient.PutItemOutput) => {
         if (err) {
             callback(err);

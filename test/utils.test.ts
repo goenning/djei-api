@@ -1,6 +1,14 @@
 import { expect } from 'chai';
 
-import { sanitize, extractWhenUpdated, parseDate, formatPermit } from '../src/utils';
+import {
+    sanitize,
+    extractWhenUpdated,
+    parseDate,
+    fromTicks,
+    toTicks,
+    formatPermit,
+    applyInterval
+} from '../src/utils';
 
 const currentYear = new Date().getUTCFullYear();
 
@@ -49,6 +57,32 @@ describe('Utility Functions', () => {
     ].forEach((item) => {
         it(`should format permit name '${item[0]}' to '${item[1]}'`, () => {
             expect(formatPermit(item[0])).to.be.eq(item[1]);
+        });
+    });
+
+    [
+            { ticks: 1494460800000, date: '2017-05-11', raw: '1494460800000' },
+            { ticks: 1494374400000, date: '2017-05-10', raw: '1494374400000' },
+    ].forEach((item) => {
+        it(`should parse date '${item.ticks}' to/from '${item.date}'`, () => {
+            expect(fromTicks(item.ticks, 'date')).to.be.eq(item.date);
+            expect(fromTicks(item.ticks, 'raw')).to.be.eq(item.raw);
+            expect(fromTicks(item.ticks, 'anything')).to.be.eq(item.date);
+
+            expect(toTicks(item.date)).to.be.eq(item.ticks);
+        });
+    });
+
+    [
+            { date: '2017-05-06', interval: 'asdf', expected: '2017-05-06' },
+            { date: '2017-05-06', interval: null, expected: '2017-05-06' },
+            { date: '2017-05-06', interval: 0, expected: '2017-05-06' },
+            { date: '2017-05-06', interval: 5, expected: '2017-05-11' },
+            { date: '2017-05-10', interval: -5, expected: '2017-05-05' },
+            { date: '2017-05-20', interval: -20, expected: '2017-04-30' },
+    ].forEach((item) => {
+        it(`should apply interval '${item.interval}' to date '${item.date}' and ge '${item.expected}'`, () => {
+            expect(fromTicks(applyInterval(toTicks(item.date), item.interval), 'date')).to.be.eq(item.expected);
         });
     });
 
