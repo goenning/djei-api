@@ -8,7 +8,7 @@
     "pack": "npm run pack-pull && npm run pack-api-show",
     "pack-pull": "rm -f pull.zip && zip -r -X pull.zip node_modules dist",
     "pack-api-show": "rm -f api-show.zip && zip -r -X api-show.zip node_modules dist",
-    "deploy": "npm run publish-pull && npm run publish-api-show",
+    "deploy": "npm run deploy-pull && npm run deploy-api-show",
     "deploy-pull": "aws lambda update-function-code --function-name djei-pull --zip-file fileb://pull.zip",
     "deploy-api-show": "aws lambda update-function-code --function-name djei-api-show --zip-file fileb://api-show.zip"
   },
