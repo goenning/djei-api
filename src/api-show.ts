@@ -5,6 +5,7 @@ import { PullResult } from './interfaces';
 export const handler = async (event: any, context: any, callback: any) => {
     const client = new AWS.DynamoDB.DocumentClient();
     const body = Object.assign({}, event.queryStringParameters, event.pathParameters);
+    console.log(body);
     const ticks = toTicks(body.date);
 
     client.get({
@@ -13,6 +14,7 @@ export const handler = async (event: any, context: any, callback: any) => {
             ticks
         }
     }, (err, data) => {
+        console.log(err, data);
         if (err) {
             callback(err, null);
         }
