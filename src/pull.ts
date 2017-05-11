@@ -1,14 +1,16 @@
+import * as AWS from 'aws-sdk';
+import config from './config';
 import axios from 'axios';
 import * as $ from 'cheerio';
-import * as AWS from 'aws-sdk';
 
 import { extractWhenUpdated, formatPermit, getToday, parseDate } from './utils';
 import { PullResult, Processes } from './interfaces';
 
+const client = new AWS.DynamoDB.DocumentClient();
+
 export const pull = async (): Promise<PullResult> => {
-    const url = 'https://www.djei.ie/en/What-We-Do/Jobs-Workplace-and-Skills/Employment-Permits/Current-Application-Processing-Dates/';
     const today = getToday();
-    const response = await axios.get(url);
+    const response = await axios.get(config.djeiUrl);
     const body = $.load(response.data);
     const processes: Processes = { };
 
@@ -31,12 +33,11 @@ export const handler = async (event: any, context: any, callback: any) => {
     const result = await pull();
     console.log(`Pull Result:`, result);
 
-    const client = new AWS.DynamoDB.DocumentClient();
     client.put({
-        TableName: 'djei_raw',
+        TableName: config.dbTable,
         Item: result,
     }, (err, output) => {
-        console.log(`DynamoDB Put:`, err, output);
+        console.log(`DynamoDB PUT:`, err, output);
         if (err) {
             return callback(err);
         } else {

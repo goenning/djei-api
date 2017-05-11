@@ -1,3 +1,5 @@
+import { PullResult } from './interfaces';
+
 export const sanitize = (input: string | null) => {
     return input ? input.trim().replace(/\s+/g, ' ') : '';
 };
@@ -53,6 +55,20 @@ export const parseDate = (input: string, relativeDate: Date) => {
 
     return new Date(`${year}-${twoDigits(month)}-${twoDigits(day)}T00:00:00.000Z`);
 };
+
+export const formatResult = (result: PullResult, format: string) => {
+    return {
+        date: fromTicks(result.ticks, format),
+        updated: fromTicks(result.updated, format),
+        processes: Object.keys(result.processes).map((name, idx) => {
+            return {
+                name,
+                date: fromTicks(result.processes[name], format)
+            };
+        })
+    };
+};
+
 
 export const formatPermit = (input: string) => {
     const sanitized = sanitize(input);
