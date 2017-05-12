@@ -1,7 +1,7 @@
 {
-  "name": "djei",
+  "name": "djei-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Periodically collects DJEI work permit processing time and provides them through API",
   "scripts": {
     "test": "tsc && mocha dist/test",
     "lint": "tslint src/** test/**",
