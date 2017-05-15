@@ -61,6 +61,10 @@ export const formatResults = (results: PullResult[], format: string) => {
 };
 
 export const formatResult = (result: PullResult, format: string) => {
+    if (!result) {
+        return null;
+    }
+
     return {
         date: fromTicks(result.ticks, format),
         updated: fromTicks(result.updated, format),
