@@ -14,18 +14,18 @@ export const extractWhenUpdated = (input: string) => {
 };
 
 const months: {[key: string]: number} = {
-    January: 1,
-    February: 2,
-    March: 3,
-    April: 4,
+    Jan: 1,
+    Feb: 2,
+    Mar: 3,
+    Apr: 4,
     May: 5,
-    June: 6,
-    July: 7,
-    August: 8,
-    September: 9,
-    October: 10,
-    November: 11,
-    December: 12
+    Jun: 6,
+    Jul: 7,
+    Aug: 8,
+    Sep: 9,
+    Oct: 10,
+    Nov: 11,
+    Dec: 12
 };
 
 function twoDigits(n: number) {
@@ -40,7 +40,7 @@ export const getToday = () => {
 export const parseDate = (input: string, relativeDate: Date) => {
     const parts = sanitize(input).split(' ');
     let year = '';
-    const month = months[parts[1]];
+    const month = months[parts[1].substring(0, 3)];
     const day = parseInt(parts[0], 10);
 
     if (parts.length === 3) {
@@ -54,6 +54,10 @@ export const parseDate = (input: string, relativeDate: Date) => {
     }
 
     return new Date(`${year}-${twoDigits(month)}-${twoDigits(day)}T00:00:00.000Z`);
+};
+
+export const formatResults = (results: PullResult[], format: string) => {
+    return results.map((r) => formatResult(r, format));
 };
 
 export const formatResult = (result: PullResult, format: string) => {
@@ -101,9 +105,25 @@ export const toTicks = (date: string | null) => {
     return ticks;
 };
 
+const dayInTicks = 24 * 60 * 60 * 1000;
+
 export const applyInterval = (ticks: number, interval: any) => {
     if (typeof interval === 'number') {
-        return ticks + (interval * 24 * 60 * 60 * 1000);
+        return ticks + (interval * dayInTicks);
     }
     return ticks;
+};
+
+export const range = (ticks: number, interval: any): number[] => {
+    const values = [ ticks ];
+    if (typeof interval === 'number' && interval) {
+        const direction = interval > 0;
+        const abs = Math.abs(interval);
+        if (abs <= 30) {
+            for (let i = abs; i > 0; i--) {
+                values.push(ticks + (i * dayInTicks * (direction ? 1 : -1)));
+            }
+        }
+    }
+    return values.sort();
 };

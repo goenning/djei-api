@@ -7,7 +7,8 @@ import {
     fromTicks,
     toTicks,
     formatPermit,
-    applyInterval
+    applyInterval,
+    range
 } from '../src/utils';
 
 const currentYear = new Date().getUTCFullYear();
@@ -27,7 +28,9 @@ describe('Utility Functions', () => {
 
     [
             [ 'As of the 9 April we are', '9 April' ],
+            [ 'As of the 12 Apr we are', '12 Apr' ],
             [ 'As of the 24 December we', '24 December' ],
+            [ 'As of the 1 Jan we', '1 Jan' ],
             [ 'As of the', '' ],
             [ '', '' ],
     ].forEach((item) => {
@@ -37,10 +40,15 @@ describe('Utility Functions', () => {
     });
 
     [
+            [ '9 Apri 2017', 'Sun, 09 Apr 2017 00:00:00 GMT' ],
             [ '9 April 2017', 'Sun, 09 Apr 2017 00:00:00 GMT' ],
+            [ '25 Decem 2012', 'Tue, 25 Dec 2012 00:00:00 GMT' ],
             [ '25 December 2012', 'Tue, 25 Dec 2012 00:00:00 GMT' ],
+            [ '12 Mar', 'Sun, 12 Mar 2017 00:00:00 GMT' ],
             [ '12 March', 'Sun, 12 Mar 2017 00:00:00 GMT' ],
+            [ '29 Oct', 'Sat, 29 Oct 2016 00:00:00 GMT' ],
             [ '29 October', 'Sat, 29 Oct 2016 00:00:00 GMT' ],
+            [ '10 Apri', 'Mon, 10 Apr 2017 00:00:00 GMT' ],
             [ '10 April', 'Mon, 10 Apr 2017 00:00:00 GMT' ]
     ].forEach((item) => {
         it(`should parse '${item[0]}' into date '${item[1]}'`, () => {
@@ -95,6 +103,20 @@ describe('Utility Functions', () => {
     ].forEach((item) => {
         it(`should apply interval '${item.interval}' to date '${item.date}' and ge '${item.expected}'`, () => {
             expect(fromTicks(applyInterval(toTicks(item.date), item.interval), 'date')).to.be.eq(item.expected);
+        });
+    });
+
+    [
+            { date: '2017-05-11', interval: 'asdf', expected: [ toTicks('2017-05-11') ] },
+            { date: '2017-05-11', interval: null, expected: [ toTicks('2017-05-11') ] },
+            { date: '2017-05-11', interval: 0, expected: [ toTicks('2017-05-11') ] },
+            { date: '2017-05-11', interval: 1, expected: [ toTicks('2017-05-11'), toTicks('2017-05-12') ] },
+            { date: '2017-05-11', interval: 2, expected: [ toTicks('2017-05-11'), toTicks('2017-05-12'), toTicks('2017-05-13') ] },
+            { date: '2017-05-11', interval: -1, expected: [ toTicks('2017-05-10'), toTicks('2017-05-11') ] },
+            //{ date: '2017-05-11', interval: -2, expected: [ toTicks('2017-05-09'), toTicks('2017-05-10'), toTicks('2017-05-11') ] },
+    ].forEach((item) => {
+        it(`should return range of '${item.interval}' for date '${item.date}'`, () => {
+            expect(range(toTicks(item.date), item.interval)).to.deep.eq(item.expected);
         });
     });
 

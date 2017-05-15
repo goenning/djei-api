@@ -1,7 +1,7 @@
 import * as AWS from 'aws-sdk';
 import config from './config';
 
-import { toTicks, formatResult, applyInterval } from './utils';
+import { toTicks, formatResults, applyInterval, range } from './utils';
 import { pull } from './pull';
 import { PullResult } from './interfaces';
 
@@ -29,18 +29,19 @@ export const handler = async (event: any, context: any, callback: any) => {
         const body = Object.assign({}, event.queryStringParameters, event.pathParameters);
         console.log(`Input:`, body);
 
-        let result: PullResult;
+        let results: PullResult[];
         if (body.date === 'now') {
-            result = await pull();
+            results = [ await pull() ];
         } else {
             const ticks = toTicks(body.date);
-            result = await getByTicks(ticks);
+            const values = range(ticks, body.interval);
+            results = await Promise.all(values.map(getByTicks));
         }
 
-        if (result) {
+        if (results && results.length > 0) {
             return callback(null, {
                 statusCode: 200,
-                body: JSON.stringify(formatResult(result, body.format))
+                body: JSON.stringify(formatResults(results, body.format))
             });
         } else {
             return callback(null, {
