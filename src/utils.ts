@@ -57,7 +57,7 @@ export const parseDate = (input: string, relativeDate: Date) => {
 };
 
 export const formatResults = (results: PullResult[], format: string) => {
-    return results.map((r) => formatResult(r, format));
+    return results.map((r) => formatResult(r, format)).filter((r) => r);
 };
 
 export const formatResult = (result: PullResult, format: string) => {
