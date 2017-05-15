@@ -114,11 +114,19 @@ export const applyInterval = (ticks: number, interval: any) => {
     return ticks;
 };
 
+function number(num: any) {
+    if (!isNaN(num)) {
+        return parseInt(num, 10);
+    }
+    return undefined;
+}
+
 export const range = (ticks: number, interval: any): number[] => {
     const values = [ ticks ];
-    if (typeof interval === 'number' && interval) {
-        const direction = interval > 0;
-        const abs = Math.min(Math.abs(interval), 30);
+    const intervalAsNumber = number(interval);
+    if (typeof intervalAsNumber === 'number') {
+        const direction = intervalAsNumber > 0;
+        const abs = Math.min(Math.abs(intervalAsNumber), 30);
         for (let i = abs; i > 0; i--) {
             values.push(ticks + (i * dayInTicks * (direction ? 1 : -1)));
         }

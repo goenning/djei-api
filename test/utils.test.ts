@@ -101,7 +101,7 @@ describe('Utility Functions', () => {
             { date: '2017-05-10', interval: -5, expected: '2017-05-05' },
             { date: '2017-05-20', interval: -20, expected: '2017-04-30' },
     ].forEach((item) => {
-        it(`should apply interval '${item.interval}' to date '${item.date}' and ge '${item.expected}'`, () => {
+        it(`should apply interval '${item.interval}' to date '${item.date}' and get '${item.expected}'`, () => {
             expect(fromTicks(applyInterval(toTicks(item.date), item.interval), 'date')).to.be.eq(item.expected);
         });
     });
@@ -111,9 +111,9 @@ describe('Utility Functions', () => {
             { date: '2017-05-11', interval: null, expected: [ toTicks('2017-05-11') ] },
             { date: '2017-05-11', interval: 0, expected: [ toTicks('2017-05-11') ] },
             { date: '2017-05-11', interval: 1, expected: [ toTicks('2017-05-11'), toTicks('2017-05-12') ] },
-            { date: '2017-05-11', interval: 2, expected: [ toTicks('2017-05-11'), toTicks('2017-05-12'), toTicks('2017-05-13') ] },
+            { date: '2017-05-11', interval: '2', expected: [ toTicks('2017-05-11'), toTicks('2017-05-12'), toTicks('2017-05-13') ] },
             { date: '2017-05-11', interval: -1, expected: [ toTicks('2017-05-10'), toTicks('2017-05-11') ] },
-            { date: '2017-05-11', interval: -2, expected: [ toTicks('2017-05-09'), toTicks('2017-05-10'), toTicks('2017-05-11') ] },
+            { date: '2017-05-11', interval: '-2', expected: [ toTicks('2017-05-09'), toTicks('2017-05-10'), toTicks('2017-05-11') ] },
     ].forEach((item) => {
         it(`should return range of '${item.interval}' for date '${item.date}'`, () => {
             expect(range(toTicks(item.date), item.interval)).to.deep.eq(item.expected);
