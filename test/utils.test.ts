@@ -113,7 +113,7 @@ describe('Utility Functions', () => {
             { date: '2017-05-11', interval: 1, expected: [ toTicks('2017-05-11'), toTicks('2017-05-12') ] },
             { date: '2017-05-11', interval: 2, expected: [ toTicks('2017-05-11'), toTicks('2017-05-12'), toTicks('2017-05-13') ] },
             { date: '2017-05-11', interval: -1, expected: [ toTicks('2017-05-10'), toTicks('2017-05-11') ] },
-            //{ date: '2017-05-11', interval: -2, expected: [ toTicks('2017-05-09'), toTicks('2017-05-10'), toTicks('2017-05-11') ] },
+            { date: '2017-05-11', interval: -2, expected: [ toTicks('2017-05-09'), toTicks('2017-05-10'), toTicks('2017-05-11') ] },
     ].forEach((item) => {
         it(`should return range of '${item.interval}' for date '${item.date}'`, () => {
             expect(range(toTicks(item.date), item.interval)).to.deep.eq(item.expected);

@@ -118,7 +118,7 @@ export const range = (ticks: number, interval: any): number[] => {
     const values = [ ticks ];
     if (typeof interval === 'number' && interval) {
         const direction = interval > 0;
-        const abs = Math.max(Math.abs(interval), 30);
+        const abs = Math.min(Math.abs(interval), 30);
         for (let i = abs; i > 0; i--) {
             values.push(ticks + (i * dayInTicks * (direction ? 1 : -1)));
         }
