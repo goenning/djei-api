@@ -50,6 +50,8 @@ export const parseDate = (input: string, relativeDate: Date) => {
         } else {
             year = relativeDate.getFullYear().toString();
         }
+    } else if (year.length !== 4) {
+        year = (2000 + parseInt(year, 10)).toString();
     }
 
     return new Date(`${year}-${twoDigits(month)}-${twoDigits(day)}T00:00:00.000Z`);
