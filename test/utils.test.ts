@@ -44,6 +44,7 @@ describe('Utility Functions', () => {
             [ '9 April 2017', 'Sun, 09 Apr 2017 00:00:00 GMT' ],
             [ '25 Decem 2012', 'Tue, 25 Dec 2012 00:00:00 GMT' ],
             [ '25 December 2012', 'Tue, 25 Dec 2012 00:00:00 GMT' ],
+            [ '25 December2012', 'Tue, 25 Dec 2012 00:00:00 GMT' ],
             [ '12 Mar', 'Sun, 12 Mar 2017 00:00:00 GMT' ],
             [ '12 March', 'Sun, 12 Mar 2017 00:00:00 GMT' ],
             [ '29 Oct', 'Sat, 29 Oct 2016 00:00:00 GMT' ],

@@ -38,14 +38,13 @@ export const getToday = () => {
 };
 
 export const parseDate = (input: string, relativeDate: Date) => {
-    const parts = sanitize(input).split(' ');
-    let year = '';
-    const month = months[parts[1].substring(0, 3)];
-    const day = parseInt(parts[0], 10);
+    input = sanitize(input).replace(/\s+/g, '');
+    const parts = /(\d+)([a-zA-Z]*)(\d*)/g.exec(input) || [];
+    let year = sanitize(parts[3]);
+    const month = months[parts[2].substring(0, 3)];
+    const day = parseInt(parts[1], 10);
 
-    if (parts.length === 3) {
-        year = parts[2];
-    } else if (parts.length === 2) {
+    if (!year) {
         if (month > relativeDate.getMonth() + 1) {
             year = (relativeDate.getFullYear() - 1).toString();
         } else {
