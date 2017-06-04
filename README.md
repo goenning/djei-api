@@ -20,10 +20,12 @@ Fetches **current** dates from DJEI official website. A live pull is performed, 
 
 This operation returns processing date for given **{date}** in the past. Future dates should not be used for obvious reasons 🤓
 
+Historical data is available since **2017-05-10**.
+
 **Examples:**
 
 - https://api.djei.goenning.net/2017-05-16?interval=-1 Retrieves 2017-05-16 and 2017-05-15
 - https://api.djei.goenning.net/2017-05-14?interval=2 Retrieves 2017-05-14, 2017-05-15 and 2017-05-16
-- https://api.djei.goenning.net/2017-05-14?format=raw Retrieves 2017-05-14 with dates in epoch format.
+- https://api.djei.goenning.net/2017-05-14?format=raw Retrieves 2017-05-14 with dates in epoch forma
 
 ### Don't abuse, plea$e.
