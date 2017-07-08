@@ -19,7 +19,7 @@ const getByTicks = (ticks: number): Promise<PullResult> => {
             if (err) {
                 return reject(err);
             }
-            return resolve(data.Item);
+            return resolve(data.Item as PullResult);
         });
     });
 };

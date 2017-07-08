@@ -12,18 +12,23 @@
     "deploy-pull": "aws lambda update-function-code --function-name djei-pull --zip-file fileb://pull.zip",
     "deploy-api-show": "aws lambda update-function-code --function-name djei-api-show --zip-file fileb://api-show.zip"
   },
-  "keywords": [ "ireland", "djei", "work permit", "employment" ],
+  "keywords": [
+    "ireland",
+    "djei",
+    "work permit",
+    "employment"
+  ],
   "author": "Guilherme Oenning <me@goenning.net> (http://goenning.net/)",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "^3.5.2",
+    "@types/chai": "^4.0.1",
     "@types/cheerio": "^0.22.1",
     "@types/mocha": "^2.2.41",
-    "@types/node": "^7.0.18",
-    "chai": "^3.5.0",
+    "@types/node": "^8.0.9",
+    "chai": "^4.0.2",
     "mocha": "^3.3.0",
-    "tslint": "^5.2.0",
-    "typescript": "^2.3.2"
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.1"
   },
   "dependencies": {
     "aws-sdk": "^2.49.0",
