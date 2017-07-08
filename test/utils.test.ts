@@ -28,6 +28,7 @@ describe('Utility Functions', () => {
 
     [
             [ 'As of the 9 April we are', '9 April' ],
+            [ 'As of the&nbsp;5 July&nbsp;we', '5 July' ],
             [ 'As of the 12 Apr we are', '12 Apr' ],
             [ 'As of the 24 December we', '24 December' ],
             [ 'As of the 1 Jan we', '1 Jan' ],
@@ -42,6 +43,7 @@ describe('Utility Functions', () => {
     [
             [ '9 Apri 2017', 'Sun, 09 Apr 2017 00:00:00 GMT' ],
             [ '9 April 2017', 'Sun, 09 Apr 2017 00:00:00 GMT' ],
+            [ '9 April   2017', 'Sun, 09 Apr 2017 00:00:00 GMT' ],
             [ '25 Decem 2012', 'Tue, 25 Dec 2012 00:00:00 GMT' ],
             [ '25 December 2012', 'Tue, 25 Dec 2012 00:00:00 GMT' ],
             [ '25 December2012', 'Tue, 25 Dec 2012 00:00:00 GMT' ],

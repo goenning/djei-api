@@ -1,11 +1,27 @@
 import { PullResult } from './interfaces';
 
 export const sanitize = (input: string | null) => {
-    return input ? input.trim().replace(/\s+/g, ' ') : '';
+    let sanitized = '';
+
+    if (input) {
+        input = input.replace(/&nbsp;/g, ' ').trim();
+        for (let i = 0; i < input.length; i++) {
+            const ascii = input.charCodeAt(i);
+            if ((ascii >= 48 && ascii <= 57) ||  // numbers
+                (ascii >= 65 && ascii <= 90) ||  // uppercase letters
+                (ascii >= 97 && ascii <= 122)) { // lowercase letters
+                sanitized += input[i];
+            } else {
+                sanitized += ' ';
+            }
+        }
+    }
+
+    return sanitized;
 };
 
 export const extractWhenUpdated = (input: string) => {
-    const regex = /As of the(.*) we/gm;
+    const regex = /As of the(.*)we/gm;
     const matches = regex.exec(input);
     if (matches) {
         return sanitize(matches[1]);
