@@ -13,7 +13,7 @@ describe('Pull', () => {
         const result = await pull();
 
         const min = toTicks('2017-07-01');
-        
+
         expect(result.ticks).to.be.greaterThan(min);
         expect(result.updated).to.be.greaterThan(min);
         expect(result.processes.reviews).to.be.greaterThan(min);
