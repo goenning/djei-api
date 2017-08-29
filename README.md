@@ -2,15 +2,11 @@
 
 # What is this?
 
-DJEI (Department of Jobs, Enterprise and Innovation) in Republic of Ireland publishes on a daily basis an update on **current processing dates** for Employment Permits.
+In Republic of Ireland, DJEI (Department of Jobs, Enterprise and Innovation) publishes on a daily basis (they try to...) an update about **current processing dates** for Employment Permits.
 
-**djei-api** pulls all these data from [DJEI official website](https://www.djei.ie/en/What-We-Do/Jobs-Workplace-and-Skills/Employment-Permits/Current-Application-Processing-Dates/) and make it available for you.
+**djei-api** pulls all this data from [DJEI official website](https://www.djei.ie/en/What-We-Do/Jobs-Workplace-and-Skills/Employment-Permits/Current-Application-Processing-Dates/) and make it available for you.
 
 # Documentation
-
-**https://api.djei.goenning.net/now** 
-
-Fetches **current** dates from DJEI official website. A live pull is performed, hence it's slower than other methods.
 
 **https://api.djei.goenning.net/{date}?interval={interval}&format={format}**
 
@@ -22,10 +18,15 @@ This operation returns processing date for given **{date}** in the past. Future 
 
 Historical data is available since **2017-05-10**.
 
+**https://api.djei.goenning.net/now** 
+
+Fetches **current** dates from DJEI official website. A live pull is performed, hence it's slower than other methods.
+If you need data from today, please use operation above with current date as a parameter.
+
 **Examples:**
 
 - https://api.djei.goenning.net/2017-05-16?interval=-1 Retrieves 2017-05-16 and 2017-05-15
 - https://api.djei.goenning.net/2017-05-14?interval=2 Retrieves 2017-05-14, 2017-05-15 and 2017-05-16
 - https://api.djei.goenning.net/2017-05-14?format=raw Retrieves 2017-05-14 with dates in epoch forma
 
-### Don't abuse, plea$e.
+### Plea$e, don't abuse.
