@@ -16,9 +16,14 @@ export const pull = async (): Promise<PullResult> => {
 
     const rows = body('article table tbody tr').toArray();
     for (const row of rows) {
-        const name = formatPermit($('td:nth-child(1)', row).text());
-        const date = $('td:nth-child(2)', row).text();
-        processes[name] = parseDate(date, today).getTime();
+        let name = formatPermit($('td:nth-child(1)', row).text());
+        if (!name) {
+            name = formatPermit($('td:nth-child(1) p:nth-child(1)', row).text());
+        }
+        if (name) {
+            const date = $('td:nth-child(2)', row).text();
+            processes[name] = parseDate(date, today).getTime();
+        }
     }
 
     const updated = extractWhenUpdated(body('article p').text());

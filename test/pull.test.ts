@@ -1,4 +1,5 @@
 import { pull } from '../src/pull';
+import { toTicks } from '../src/utils';
 import { expect } from 'chai';
 
 const fail = (err: Error) => {
@@ -10,12 +11,15 @@ describe('Pull', () => {
     it(`should pull data from live page`, async function() {
         this.timeout(30000);
         const result = await pull();
-        expect(result.ticks).to.be.greaterThan(0);
-        expect(result.updated).to.be.greaterThan(0);
-        expect(result.processes.reviews).to.be.greaterThan(0);
-        expect(result.processes.stamp4).to.be.greaterThan(0);
-        expect(result.processes.standard).to.be.greaterThan(0);
-        expect(result.processes.trusted).to.be.greaterThan(0);
+
+        const min = toTicks('2017-07-01');
+        
+        expect(result.ticks).to.be.greaterThan(min);
+        expect(result.updated).to.be.greaterThan(min);
+        expect(result.processes.reviews).to.be.greaterThan(min);
+        expect(result.processes.stamp4).to.be.greaterThan(min);
+        expect(result.processes.standard).to.be.greaterThan(min);
+        expect(result.processes.trusted).to.be.greaterThan(min);
     });
 
 });

@@ -21,7 +21,7 @@ export const sanitize = (input: string | null) => {
 };
 
 export const extractWhenUpdated = (input: string) => {
-    const regex = /As of the(.*)we/gm;
+    const regex = /As of the(.*?)we/gm;
     const matches = regex.exec(input);
     if (matches) {
         return sanitize(matches[1]);
@@ -102,7 +102,7 @@ export const formatPermit = (input: string) => {
         case 'Reviews received': return 'reviews';
         case 'Requests received week beginning': return 'stamp4';
     }
-    return sanitized;
+    return null;
 };
 
 export const fromTicks = (ticks: number, format: string) => {
