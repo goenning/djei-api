@@ -4,7 +4,7 @@ export const sanitize = (input: string | null) => {
     let sanitized = '';
 
     if (input) {
-        input = input.replace(/&nbsp;/g, ' ').trim();
+        input = input.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
         for (let i = 0; i < input.length; i++) {
             const ascii = input.charCodeAt(i);
             if ((ascii >= 48 && ascii <= 57) ||  // numbers
@@ -94,14 +94,20 @@ export const formatResult = (result: PullResult, format: string) => {
     };
 };
 
-export const formatPermit = (input: string) => {
-    const sanitized = sanitize(input);
-    switch (sanitized) {
+export const formatPermit = (header: string, content: string) => {
+    header = sanitize(header).replace(/\s+/g, ' ');
+    content = sanitize(content).replace(/\s+/g, ' ');
+
+    switch (content) {
         case 'Trusted Partner': return 'trusted';
         case 'Standard': return 'standard';
-        case 'Reviews received': return 'reviews';
-        case 'Requests received week beginning': return 'stamp4';
     }
+
+    switch (header) {
+        case 'Reviews for Trusted Partner and Standard Employment Permit Applications': return 'reviews';
+        case 'Requests for Support Letters for a Stamp 4': return 'stamp4';
+    }
+
     return null;
 };
 

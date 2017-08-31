@@ -3,7 +3,7 @@ import config from './config';
 import axios from 'axios';
 import * as $ from 'cheerio';
 
-import { extractWhenUpdated, formatPermit, getToday, parseDate } from './utils';
+import { extractWhenUpdated, formatPermit, getToday, parseDate, sanitize } from './utils';
 import { PullResult, Processes } from './interfaces';
 
 const client = new AWS.DynamoDB.DocumentClient();
@@ -16,12 +16,12 @@ export const pull = async (): Promise<PullResult> => {
 
     const rows = body('article table tbody tr').toArray();
     for (const row of rows) {
-        let name = formatPermit($('td:nth-child(1)', row).text());
-        if (!name) {
-            name = formatPermit($('td:nth-child(1) p:nth-child(1)', row).text());
-        }
-        if (name) {
-            const date = $('td:nth-child(2)', row).text();
+        const header = $('thead tr th:nth-child(1)', row.parent.parent).text();
+        const content = $('td:nth-child(1)', row).text();
+        const date = $('td:nth-child(2)', row).text();
+
+        const name = formatPermit(header, content);
+        if (date && name) {
             processes[name] = parseDate(date, today).getTime();
         }
     }

@@ -65,13 +65,13 @@ describe('Utility Functions', () => {
     });
 
     [
-            [ 'Trusted Partner', 'trusted' ],
-            [ 'Standard', 'standard' ],
-            [ 'Reviews received', 'reviews' ],
-            [ 'Requests received week beginning', 'stamp4' ],
+            [ 'Employment Permit applications received by Employer Type', 'Trusted Partner', 'trusted' ],
+            [ 'Employment Permit applications received by Employer Type', 'Standard', 'standard' ],
+            [ 'Reviews for Trusted Partner and Standard Employment Permit Applications', 'Reviews received', 'reviews' ],
+            [ 'Requests for Support Letters  for a Stamp 4', 'Reviews received', 'stamp4' ],
     ].forEach((item) => {
-        it(`should format permit name '${item[0]}' to '${item[1]}'`, () => {
-            expect(formatPermit(item[0])).to.be.eq(item[1]);
+        it(`should format permit name '${item[0]} - ${item[1]}' to '${item[2]}'`, () => {
+            expect(formatPermit(item[0], item[1])).to.be.eq(item[2]);
         });
     });
 
