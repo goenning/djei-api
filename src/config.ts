@@ -1,5 +1,5 @@
 const config = {
-    djeiUrl: 'https://www.djei.ie/en/What-We-Do/Jobs-Workplace-and-Skills/Employment-Permits/Current-Application-Processing-Dates/',
+    djeiUrl: 'https://www.djei.ie/en/What-We-Do/Workplace-and-Skills/Employment-Permits/Current-Application-Processing-Dates/',
     dbTable: 'djei_raw'
 };
 
