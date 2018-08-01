@@ -27,12 +27,12 @@ describe('Utility Functions', () => {
     });
 
     [
-            [ 'As of the 9 April we are', '9 April' ],
-            [ 'As of the&nbsp;5 July&nbsp;we', '5 July' ],
-            [ 'As of the 12 Apr we are', '12 Apr' ],
-            [ 'As of the 24 December we', '24 December' ],
-            [ 'As of the 1 Jan we', '1 Jan' ],
-            [ 'As of the', '' ],
+            [ 'As of 9 April, we are', '9 April' ],
+            [ 'As of &nbsp;5 July&nbsp;, we', '5 July' ],
+            [ 'As of 12 Apr, we are', '12 Apr' ],
+            [ 'As of 24 December, we', '24 December' ],
+            [ 'As of 1 Jan, we', '1 Jan' ],
+            [ 'As of ', '' ],
             [ '', '' ],
     ].forEach((item) => {
         it(`should extract '${item[1]}' from '${item[0]}'`, () => {
