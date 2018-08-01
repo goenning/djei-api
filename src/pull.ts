@@ -26,8 +26,6 @@ export const pull = async (): Promise<PullResult> => {
         }
     }
 
-    console.log(body('article > p:nth-child(4)').text())
-    console.log(extractWhenUpdated(body('article > p:nth-child(4)').text()))
     const updated = extractWhenUpdated(body('article > p:nth-child(4)').text());
     return {
         ticks: today.getTime(),
